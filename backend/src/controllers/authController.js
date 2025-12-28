@@ -39,12 +39,12 @@ export const googleLogin = async (req, res) => {
       { expiresIn: "1d" }
     );
 
-    res.cookie("admin_token", token, {
-      httpOnly: true,
-      secure: false, // true in production
-      sameSite: "lax",
-      maxAge: 24 * 60 * 60 * 1000,
-    });
+      res.cookie("admin_token", token, {
+        httpOnly: true,
+        secure: true,        // REQUIRED on HTTPS (Vercel + Render)
+        sameSite: "none",    // REQUIRED for cross-domain
+        maxAge: 24 * 60 * 60 * 1000,
+      });
 
     res.json({
       message: "Login successful",
@@ -61,6 +61,10 @@ export const googleLogin = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  res.clearCookie("admin_token");
+  res.clearCookie("admin_token", {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+});
   res.json({ message: "Logged out" });
 };

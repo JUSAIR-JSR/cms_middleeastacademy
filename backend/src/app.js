@@ -10,8 +10,15 @@ const app = express();
 app.use(
   cors({
     origin: [
-      "http://localhost:3000", // main site
-      "http://localhost:3001", // CMS site (IMPORTANT)
+
+      //local developement
+      // "http://localhost:3000", // main site
+      // "http://localhost:3001", // CMS site (IMPORTANT)
+      
+      //production 
+      "https://cmsmiddleeastacademy.vercel.app/",
+      'https://middleeastacademytestdev.vercel.app/',
+      'https://www.middleeastacademy.in/'
     ],
     credentials: true,
   })

@@ -12,12 +12,9 @@ const app = express();
 app.use(
   cors({
     origin: [
-      // production
       "https://cmsmiddleeastacademy.vercel.app",
       "https://middleeastacademytestdev.vercel.app",
       "https://www.middleeastacademy.in",
-
-      // local (enable when needed)
       // "http://localhost:3000",
       // "http://localhost:3001",
     ],
@@ -26,9 +23,6 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
-// ✅ REQUIRED for preflight
-app.options("*", cors());
 
 app.use(express.json());
 app.use(cookieParser());

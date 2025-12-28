@@ -9,15 +9,26 @@ import messageRoutes from "./routes/messageRoutes.js";
 
 const app = express();
 
+const allowedOrigins = [
+  "https://cms.middleeastacademy.in",      // ✅ admin login
+  "https://www.middleeastacademy.in",      // public site
+  "https://middleeastacademytestdev.vercel.app",
+  "http://localhost:3000",
+  "http://localhost:3001",
+];
+
 app.use(
   cors({
-    origin: [
-      "https://cmsmiddleeastacademy.vercel.app",
-      "https://middleeastacademytestdev.vercel.app",
-      "https://www.middleeastacademy.in",
-      // "http://localhost:3000",
-      // "http://localhost:3001",
-    ],
+    origin: function (origin, callback) {
+      // Allow server-to-server requests (no origin)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],

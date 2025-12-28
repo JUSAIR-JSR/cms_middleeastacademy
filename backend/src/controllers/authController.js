@@ -39,12 +39,14 @@ export const googleLogin = async (req, res) => {
       { expiresIn: "1d" }
     );
 
-      res.cookie("admin_token", token, {
-        httpOnly: true,
-        secure: true,        // REQUIRED on HTTPS (Vercel + Render)
-        sameSite: "none",    // REQUIRED for cross-domain
-        maxAge: 24 * 60 * 60 * 1000,
-      });
+        res.cookie("admin_token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax",
+      domain: ".middleeastacademy.in",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
 
     res.json({
       message: "Login successful",

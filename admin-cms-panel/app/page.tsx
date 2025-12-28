@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence, Variants } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { ArrowRight, ExternalLink, Shield, Sparkles, Lock, BarChart3, FileEdit, Users, Globe, Zap, Cpu, Cloud } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -55,58 +55,61 @@ export default function Home() {
     },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
-      },
+ const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
     },
-  };
+  },
+};
 
-  const itemVariants = {
-    hidden: { 
-      y: 30, 
-      opacity: 0,
-      scale: 0.95 
-    },
-    visible: {
-      y: 0,
-      opacity: 1,
-      scale: 1,
-      transition: { 
-        type: "spring", 
-        stiffness: 100,
-        damping: 15 
-      },
-    },
-  };
 
-  const iconFloatVariants = {
-    float: {
-      y: [0, -20, 0],
-      rotate: [0, 5, -5, 0],
-      transition: {
-        duration: 4,
-        repeat: Infinity,
-        ease: "easeInOut",
-      },
+ const itemVariants: Variants = {
+  hidden: {
+    y: 30,
+    opacity: 0,
+    scale: 0.95,
+  },
+  visible: {
+    y: 0,
+    opacity: 1,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 15,
     },
-  };
+  },
+};
 
-  const shimmerVariants = {
-    initial: { x: "-100%" },
-    animate: {
-      x: "100%",
-      transition: {
-        duration: 1.5,
-        repeat: Infinity,
-        ease: "linear",
-      },
+const iconFloatVariants: Variants = {
+  float: {
+    y: [0, -20, 0],
+    rotate: [0, 5, -5, 0],
+    transition: {
+      duration: 4,
+      repeat: Infinity,
+      ease: "easeInOut",
     },
-  };
+  },
+};
+
+
+  const shimmerVariants: Variants = {
+  initial: { x: "-100%" },
+  animate: {
+    x: "100%",
+    transition: {
+      duration: 1.5,
+      repeat: Infinity,
+      ease: "linear",
+    },
+  },
+};
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50 flex items-center justify-center px-6 py-12 relative overflow-hidden">
@@ -425,10 +428,10 @@ export default function Home() {
           className="mt-16 flex flex-wrap items-center justify-center gap-6"
         >
           {[
-            { icon: Lock, text: "SSL Encryption", color: "emerald" },
-            { icon: Shield, text: "RBAC Security", color: "green" },
-            { icon: Zap, text: "Real-time Sync", color: "teal" },
-            { icon: Cloud, text: "Cloud Backup", color: "lime" },
+            { icon: Lock, text: "SSL Encryption",bg: "bg-emerald-100", textColor: "text-emerald-600", },
+            { icon: Shield, text: "RBAC Security", bg: "bg-emerald-100", textColor: "text-emerald-600", },
+            { icon: Zap, text: "Real-time Sync", bg: "bg-emerald-100", textColor: "text-emerald-600",},
+            { icon: Cloud, text: "Cloud Backup", bg: "bg-emerald-100", textColor: "text-emerald-600", },
           ].map((item, index) => (
             <motion.div
               key={index}
@@ -438,11 +441,11 @@ export default function Home() {
               <motion.div
                 animate={{ scale: [1, 1.1, 1] }}
                 transition={{ duration: 2, delay: index * 0.5, repeat: Infinity }}
-                className={`p-2 rounded-lg bg-${item.color}-100`}
+                className={`p-2 rounded-lg bg-${item.textColor}-100`}
               >
-                <item.icon className={`w-4 h-4 text-${item.color}-600`} />
+                <item.icon className={`w-4 h-4 text-${item.textColor}-600`} />
               </motion.div>
-              <span className={`text-sm font-medium text-${item.color}-800`}>
+              <span className={`text-sm font-medium text-${item.textColor}-800`}>
                 {item.text}
               </span>
             </motion.div>
